@@ -1,0 +1,32 @@
+{
+  "name": "spotlight",
+  "version": "0.0.1",
+  "description": "A presentation deck with partials based on reveal.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "gulp copy"
+  },
+  "keywords": [
+    "presentation",
+    "reveal.js"
+  ],
+  "author": "Tudor Berariu, Florin Gogianu",
+  "license": "ISC",
+  "dependencies": {
+    "reveal.js": "^3.1.0"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.8",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.0.2",
+    "gulp-csso": "^1.0.0",
+    "gulp-express": "^0.3.5",
+    "gulp-jade": "^1.1.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-plumber": "^1.0.1",
+    "gulp-sass": "^2.0.4",
+    "wiredep": "^2.2.2"
+  }
+}
