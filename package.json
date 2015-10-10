@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "A presentation deck with partials based on reveal.js",
   "main": "index.js",
+  "repository" : { 
+    "type" : "git", 
+    "url" : "https://github.com/floringogianu/spotlight.js.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "gulp copy"
