@@ -9,7 +9,7 @@ var browserSync = require('browser-sync');
 
 var deck_folder = "./src/deck";
 var fs = require("fs")
-if (!fs.exists(deck_folder)) {
+if (!fs.existsSync(deck_folder)) {
     deck_folder = "./src/deck-examples"
 }
 
