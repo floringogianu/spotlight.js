@@ -5,6 +5,7 @@ Session.vim
 .netrwhist
 *~
 .DS_Store
+src/deck/
 public/
 node_modules/
 bower_components/
