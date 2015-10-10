@@ -7,6 +7,12 @@ var jpegoptim   = require('imagemin-jpegoptim');
 var svgo        = require('imagemin-svgo');
 var browserSync = require('browser-sync');
 
+var deck_folder = "./src/deck";
+var fs = require("fs")
+if (!fs.exists(deck_folder)) {
+    deck_folder = "./src/deck-examples"
+}
+
 var paths = {
   public: "./public/",
   styles: {
@@ -15,8 +21,9 @@ var paths = {
     dest: './public/css/'
   },
   deck: {
-    all: "./src/deck/**/*.jade",
-    src: ['./src/deck/**/*.jade', '!./src/deck/_*/**'],
+    all: deck_folder.concat("/**/*.jade"),
+    src: [deck_folder.concat("/**/*.jade"),
+	  "!".concat(deck_folder.concat("/_*/**"))],
     dest: "./public/"
   },
   scripts: {
