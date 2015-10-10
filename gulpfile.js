@@ -10,7 +10,6 @@ var fs          = require("fs");
 
 // If the deck is clean, use the examples
 var deck_folder = "./src/deck";
-var fs = require("fs");
 if (!fs.existsSync(deck_folder)) {
   deck_folder = "./src/deck-examples";
 }
