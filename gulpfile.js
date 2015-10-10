@@ -8,9 +8,9 @@ var svgo        = require('imagemin-svgo');
 var browserSync = require('browser-sync');
 
 var deck_folder = "./src/deck";
-var fs = require("fs")
+var fs = require("fs");
 if (!fs.existsSync(deck_folder)) {
-    deck_folder = "./src/deck-examples"
+  deck_folder = "./src/deck-examples";
 }
 
 var paths = {
