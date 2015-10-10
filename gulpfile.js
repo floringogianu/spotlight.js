@@ -6,7 +6,9 @@ var optipng     = require('imagemin-optipng');
 var jpegoptim   = require('imagemin-jpegoptim');
 var svgo        = require('imagemin-svgo');
 var browserSync = require('browser-sync');
+var fs          = require("fs");
 
+// If the deck is clean, use the examples
 var deck_folder = "./src/deck";
 var fs = require("fs");
 if (!fs.existsSync(deck_folder)) {
