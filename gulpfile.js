@@ -1,6 +1,10 @@
 'use strict';
-var gulp  = require('gulp');
-var $     = require('gulp-load-plugins')();
+var gulp        = require('gulp');
+var $           = require('gulp-load-plugins')();
+var pngquant    = require('imagemin-pngquant');
+var optipng     = require('imagemin-optipng');
+var jpegoptim   = require('imagemin-jpegoptim');
+var svgo        = require('imagemin-svgo');
 var browserSync = require('browser-sync');
 
 var paths = {
@@ -20,6 +24,10 @@ var paths = {
             "./node_modules/reveal.js/plugin/**/*.js",
             "./node_modules/reveal.js/lib/js/*.js"],
     dest: "./public/"
+  },
+  img: {
+    src: "./src/img/**/*{png,jpg,jpeg,svg}",
+    dest: "./public/img/"
   }
 }
 var onError = function (err) {  
@@ -49,12 +57,22 @@ gulp.task('jade', function() {
     .pipe(browserSync.stream());
 });
 
+gulp.task('img', function() {
+  gulp.src(paths.img.src).
+    pipe(pngquant({quality: '65-80', speed: 4})()).
+    pipe(optipng({optimizationLevel: 3})()).
+    pipe(jpegoptim({max: 85, progressive: true})()).
+    pipe(svgo()()).
+    pipe( gulp.dest(paths.img.dest)).
+    pipe(browserSync.stream());
+});
+
 gulp.task('copy', function() {
   gulp.src(paths.scripts.reveal, {base: './node_modules/reveal.js/'}) 
   .pipe(gulp.dest(paths.scripts.dest));
 })
 
-gulp.task('serve', ['jade', 'styles'], function () {
+gulp.task('serve', ['jade', 'styles', 'img'], function () {
   browserSync({
     notify: false,
     port: 9000,
@@ -73,4 +91,5 @@ gulp.task('serve', ['jade', 'styles'], function () {
 
   gulp.watch(paths.deck.all, ['jade']);
   gulp.watch(paths.styles.src, ['styles']);
+  gulp.watch(paths.img.src, ['img']);
 });
