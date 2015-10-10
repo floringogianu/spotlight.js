@@ -34,3 +34,14 @@ section.has-light-background {
 	}
 }
 @import "./template/theme";
+
+
+// Customizations
+.reveal .slides {
+  .left {
+    text-align: left;
+  }
+  .right {
+    text-align: right;
+  }
+}
