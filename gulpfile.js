@@ -1,10 +1,6 @@
 'use strict';
 var gulp        = require('gulp');
 var $           = require('gulp-load-plugins')();
-var pngquant    = require('imagemin-pngquant');
-var optipng     = require('imagemin-optipng');
-var jpegoptim   = require('imagemin-jpegoptim');
-var svgo        = require('imagemin-svgo');
 var browserSync = require('browser-sync');
 var fs          = require("fs");
 
@@ -22,13 +18,13 @@ var paths = {
     dest: './public/css/'
   },
   deck: {
-    all: deck_folder.concat("/**/*.jade"),
-    src: [deck_folder.concat("/**/*.jade"),
+    all: deck_folder.concat("/**/*.pug"),
+    src: [deck_folder.concat("/**/*.pug"),
 	  "!".concat(deck_folder.concat("/_*/**"))],
     dest: "./public/"
   },
   scripts: {
-    reveal: ["./node_modules/reveal.js/js/reveal.js", 
+    reveal: ["./node_modules/reveal.js/js/reveal.js",
             "./node_modules/reveal.js/plugin/**/*.js",
             "./node_modules/reveal.js/lib/js/*.js"],
     dest: "./public/"
@@ -38,7 +34,7 @@ var paths = {
     dest: "./public/img/"
   }
 }
-var onError = function (err) {  
+var onError = function (err) {
   console.log(err);
   this.emit('end');
 };
@@ -53,10 +49,10 @@ gulp.task('styles', function() {
 });
 
 
-gulp.task('jade', function() {
+gulp.task('pug', function() {
   return gulp.src(paths.deck.src)
     //.pipe($.plumber())
-    .pipe($.jade({
+    .pipe($.pug({
       pretty: true
       //data: o
     }))
@@ -67,20 +63,17 @@ gulp.task('jade', function() {
 
 gulp.task('img', function() {
   gulp.src(paths.img.src).
-    pipe(pngquant({quality: '65-80', speed: 4})()).
-    pipe(optipng({optimizationLevel: 3})()).
-    pipe(jpegoptim({max: 85, progressive: true})()).
-    pipe(svgo()()).
+    pipe($.imagemin()).
     pipe( gulp.dest(paths.img.dest)).
     pipe(browserSync.stream());
 });
 
 gulp.task('copy', function() {
-  gulp.src(paths.scripts.reveal, {base: './node_modules/reveal.js/'}) 
+  gulp.src(paths.scripts.reveal, {base: './node_modules/reveal.js/'})
   .pipe(gulp.dest(paths.scripts.dest));
 })
 
-gulp.task('serve', ['jade', 'styles', 'img'], function () {
+gulp.task('serve', ['pug', 'styles', 'img'], function () {
   browserSync({
     notify: false,
     port: 9000,
@@ -97,7 +90,7 @@ gulp.task('serve', ['jade', 'styles', 'img'], function () {
     'public/*.html',
   ]).on('change', browserSync.reload);
 
-  gulp.watch(paths.deck.all, ['jade']);
+  gulp.watch(paths.deck.all, ['pug']);
   gulp.watch(paths.styles.src, ['styles']);
   gulp.watch(paths.img.src, ['img']);
 });
